@@ -4,6 +4,8 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+
+
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -109,9 +111,12 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
+  console.log('handle render save');
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
+    console.log('hide')
     hide(saveNoteBtn);
   } else {
+    console.log('show');
     show(saveNoteBtn);
   }
 };
