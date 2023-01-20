@@ -4,16 +4,19 @@ const apiRoutes = require('./routes/apiRoutes');
 const htmlRoutes = require('./routes/htmlRoutes');
 const PORT = process.env.PORT || 3001;
 
+
 // Folder to retrieve CSS and JS Files
 app.use(express.static("public"));
 
-// Middleware to parse the JSON data
+
+// Middleware 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use('/api', apiRoutes);
 app.use('/', htmlRoutes);
 
-// PORT
+
+// Listening at this port
 app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
 });
