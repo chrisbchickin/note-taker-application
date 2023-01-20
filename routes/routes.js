@@ -1,6 +1,7 @@
 // const notesData = require("../data/notesData");
 const fs = require("fs");
 const util = require("util");
+const path = require("path");
 const app = require("express").Router();
 const writeFileAsync = util.promisify(fs.writeFile);
 const readFileAsync = util.promisify(fs.readFile);
@@ -8,7 +9,7 @@ var notesData;
 
 
 //Reads file and sends JSON of data
-app.get("/notes", (req, res) => {
+app.get("api/notes", (req, res) => {
 
   readFileAsync("db/db.json", "utf8").then(function (data) {
 
@@ -20,9 +21,9 @@ app.get("/notes", (req, res) => {
 
 
 //adds new note and writes new JSON file
-app.post("/notes", (req, res) => {
+app.post("api/notes", (req, res) => {
   readFileAsync("db/db.json", "utf8").then(function (data) {
-    // Parse data to get an array of objects
+    
     notesData = JSON.parse(data);
 
     let newNote = req.body;
@@ -40,7 +41,7 @@ app.post("/notes", (req, res) => {
 });
 
 // loops through matching id and delets any notes that match
-app.delete("/notes/:id", (req, res) => {
+app.delete("api/notes/:id", (req, res) => {
   let selID = parseInt(req.params.id);
 
 
@@ -54,6 +55,17 @@ app.delete("/notes/:id", (req, res) => {
     }
   }
   res.json(notesData);
+});
+
+
+// Sends notes.html file
+app.get("/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/notes.html"));
+});
+
+// Sends index.html file 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 

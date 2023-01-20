@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const apiRoutes = require('./routes/apiRoutes');
-const htmlRoutes = require('./routes/htmlRoutes');
+const Routes = require('./routes/routes');
 const PORT = process.env.PORT || 3001;
 
 
@@ -12,8 +11,7 @@ app.use(express.static("public"));
 // Middleware 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-app.use('/api', apiRoutes);
-app.use('/', htmlRoutes);
+app.use('/', Routes);
 
 
 // Listening at this port
