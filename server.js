@@ -4,14 +4,15 @@ const Routes = require('./routes/routes');
 const PORT = process.env.PORT || 3001;
 
 
-// Folder to retrieve CSS and JS Files
+// middleware giving access to public folder
 app.use(express.static("public"));
 
 
 // Middleware 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-app.use('/', Routes);
+app.use(Routes);
+
 
 
 // Listening at this port

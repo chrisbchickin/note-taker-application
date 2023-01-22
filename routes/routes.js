@@ -1,4 +1,3 @@
-// const notesData = require("../data/notesData");
 const fs = require("fs");
 const util = require("util");
 const path = require("path");
@@ -9,7 +8,7 @@ var notesData;
 
 
 //Reads file and sends JSON of data
-app.get("api/notes", (req, res) => {
+app.get("/api/notes", (req, res) => {
 
   readFileAsync("db/db.json", "utf8").then(function (data) {
 
@@ -21,9 +20,9 @@ app.get("api/notes", (req, res) => {
 
 
 //adds new note and writes new JSON file
-app.post("api/notes", (req, res) => {
+app.post("/api/notes", (req, res) => {
   readFileAsync("db/db.json", "utf8").then(function (data) {
-    
+
     notesData = JSON.parse(data);
 
     let newNote = req.body;
@@ -41,10 +40,8 @@ app.post("api/notes", (req, res) => {
 });
 
 // loops through matching id and delets any notes that match
-app.delete("api/notes/:id", (req, res) => {
+app.delete("/api/notes/:id", (req, res) => {
   let selID = parseInt(req.params.id);
-
-
   for (let i = 0; i < notesData.length; i++) {
     if (selID === notesData[i].id) {
       notesData.splice(i, 1);
@@ -60,11 +57,13 @@ app.delete("api/notes/:id", (req, res) => {
 
 // Sends notes.html file
 app.get("/notes", (req, res) => {
+  console.log('/notes')
   res.sendFile(path.join(__dirname, "../public/notes.html"));
 });
 
 // Sends index.html file 
 app.get("*", (req, res) => {
+  console.log('*');
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
